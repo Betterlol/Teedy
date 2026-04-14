@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="Custom PMD Metrics Rules"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.github.io/schema/ruleset_2_0_0.xsd">
+
+    <description>
+        Custom PMD ruleset for Practice 7:
+        LoC, CC, WMC, CBO, and LCOM-related metrics.
+    </description>
+
+    <!-- LoC 近似 -->
+    <rule ref="category/java/design.xml/NcssCount">
+        <properties>
+            <property name="methodReportLevel" value="50"/>
+            <property name="classReportLevel" value="1000"/>
+        </properties>
+    </rule>
+
+    <!-- CC -->
+    <rule ref="category/java/design.xml/CyclomaticComplexity">
+        <properties>
+            <property name="methodReportLevel" value="10"/>
+            <property name="classReportLevel" value="80"/>
+        </properties>
+    </rule>
+
+    <!-- WMC + LCOM 近似 -->
+    <rule ref="category/java/design.xml/GodClass" />
+
+    <!-- CBO 近似 -->
+    <rule ref="category/java/design.xml/ExcessiveImports">
+        <properties>
+            <property name="minimum" value="30"/>
+        </properties>
+    </rule>
+</ruleset>

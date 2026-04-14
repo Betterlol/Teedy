@@ -199,6 +199,57 @@
     </dependency>
   </dependencies>
 
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>copy-site-to-parent</id>
+            <phase>site</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <overwrite>true</overwrite>
+              <outputDirectory>${project.parent.basedir}/target/site/${project.artifactId}</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${project.reporting.outputDirectory}</directory>
+                  <filtering>false</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+          <execution>
+            <id>copy-existing-site-to-parent-on-install</id>
+            <phase>install</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <overwrite>true</overwrite>
+              <outputDirectory>${project.parent.basedir}/target/site/${project.artifactId}</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>${project.reporting.outputDirectory}</directory>
+                  <filtering>false</filtering>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
   <profiles>
     <!-- Development profile (active by default) -->
     <profile>
@@ -226,14 +277,5 @@
       <id>prod</id>
     </profile>
   </profiles>
-
-  <build>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-        <filtering>false</filtering>
-      </resource>
-    </resources>
-  </build>
 
 </project>
